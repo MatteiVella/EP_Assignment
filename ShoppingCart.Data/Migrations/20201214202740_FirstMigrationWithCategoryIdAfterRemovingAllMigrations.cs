@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ShoppingCart.Data.Migrations
 {
-    public partial class FirstMigrationWithAuotmaticGUID : Migration
+    public partial class FirstMigrationWithCategoryIdAfterRemovingAllMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,23 +26,35 @@ namespace ShoppingCart.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false, defaultValueSql: "NewID()"),
                     Name = table.Column<string>(nullable: false),
-                    Price = table.Column<string>(nullable: false),
+                    Price = table.Column<double>(nullable: false),
                     Description = table.Column<string>(nullable: false),
-                    ImageUrl = table.Column<string>(nullable: false)
+                    ImageUrl = table.Column<string>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Categories");
         }
     }
 }

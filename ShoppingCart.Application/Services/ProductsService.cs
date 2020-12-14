@@ -16,6 +16,7 @@ namespace ShoppingCart.Application.Services
         {
             _productRepo = products;
         }
+
         public IQueryable<ProductViewModel> GetProducts()
         {
             var list = from p in _productRepo.GetProducts()

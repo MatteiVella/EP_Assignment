@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201214175116_SecondMigrationChangingStringToDouble.cs" />
+    <Compile Remove="Migrations\20201214175116_SecondMigrationChangingStringToDouble.Designer.cs" />
+    <Compile Remove="Migrations\20201214201220_ThridMigrationAddingCategoryField.cs" />
+    <Compile Remove="Migrations\20201214201220_ThridMigrationAddingCategoryField.Designer.cs" />
+    <Compile Remove="Migrations\20201214201433_ThridMigrationAddingCategoryField.cs" />
+    <Compile Remove="Migrations\20201214201433_ThridMigrationAddingCategoryField.Designer.cs" />
+    <Compile Remove="Migrations\20201214201929_SecondMigrationWithCategoryId.cs" />
+    <Compile Remove="Migrations\20201214201929_SecondMigrationWithCategoryId.Designer.cs" />
+    <Compile Remove="Migrations\20201214202052_SecondMigrationWithCategoryId.cs" />
+    <Compile Remove="Migrations\20201214202052_SecondMigrationWithCategoryId.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.9" />

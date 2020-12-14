@@ -10,8 +10,8 @@ using ShoppingCart.Data.Context;
 namespace ShoppingCart.Data.Migrations
 {
     [DbContext(typeof(ShoppingCartDbContext))]
-    [Migration("20201214175116_SecondMigrationChangingStringToDouble")]
-    partial class SecondMigrationChangingStringToDouble
+    [Migration("20201214202740_FirstMigrationWithCategoryIdAfterRemovingAllMigrations")]
+    partial class FirstMigrationWithCategoryIdAfterRemovingAllMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,9 @@ namespace ShoppingCart.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NewID()");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -61,7 +64,18 @@ namespace ShoppingCart.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ShoppingCart.Domain.Models.Product", b =>
+                {
+                    b.HasOne("ShoppingCart.Domain.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

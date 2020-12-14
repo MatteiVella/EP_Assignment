@@ -6,8 +6,8 @@ using System.Text;
 
 namespace ShoppingCart.Application.Interfaces
 {
-    public interface IProductsService
+    public interface ICategoriesService
     {
-        IQueryable<ProductViewModel> GetProducts();
+        IQueryable<CategoryViewModel> GetCategories();
     }
 }
