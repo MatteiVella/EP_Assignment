@@ -11,4 +11,8 @@
     <PackageReference Include="MongoDB.Driver.Core" Version="2.11.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShoppingCart.Data\ShoppingCart.Data.csproj" />
+  </ItemGroup>
+
 </Project>
