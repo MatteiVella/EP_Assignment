@@ -31,5 +31,22 @@ namespace ShoppingCart.Application.Services
                        };
             return list;
         }
+
+        public ProductViewModel GetProduct(Guid id)
+        {
+            ProductViewModel productViewModel = new ProductViewModel();
+            var productFromDb = _productRepo.GetProduct(id);
+
+            productViewModel.Description = productFromDb.Description;
+            productViewModel.Id = productFromDb.Id;
+            productViewModel.ImageUrl = productFromDb.ImageUrl;
+            productViewModel.name = productFromDb.Name;
+            productViewModel.price = productFromDb.Price;
+            productViewModel.Category = new CategoryViewModel();
+            productViewModel.Category.Id = productFromDb.Category.Id;
+            productViewModel.Category.Name = productFromDb.Category.Name;
+
+            return productViewModel;
+        }
     }
 }
