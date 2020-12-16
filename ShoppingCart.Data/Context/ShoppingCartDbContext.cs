@@ -15,10 +15,18 @@ namespace ShoppingCart.Data.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<ProductImage> ProductImages { get; set; }
+
+        public DbSet<Member> Members { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Product>().Property(x => x.Id).HasDefaultValueSql("NewID()");
         } 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
     }
 }

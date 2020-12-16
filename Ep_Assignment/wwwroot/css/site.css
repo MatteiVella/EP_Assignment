@@ -75,6 +75,8 @@ body {
     border-radius: 20px;
     width: 100%;
     height: 360px;
+    margin-left:auto;
+    margin-right:auto;
 
 }
 
@@ -83,3 +85,4 @@ body {
     height: 25vh;
     object-fit: contain;
 }
+

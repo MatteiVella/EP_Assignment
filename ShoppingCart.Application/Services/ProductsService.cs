@@ -1,6 +1,9 @@
-﻿using ShoppingCart.Application.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using ShoppingCart.Domain.Interfaces;
+using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,42 +14,45 @@ namespace ShoppingCart.Application.Services
     public class ProductsService : IProductsService
     {
         private IProductsRepository _productRepo;
+        private IMapper _mapper;
 
-        public ProductsService(IProductsRepository products)
+        public ProductsService(IProductsRepository products, IMapper mapper)
         {
             _productRepo = products;
+            _mapper = mapper;
         }
 
         public IQueryable<ProductViewModel> GetProducts()
         {
-            var list = from p in _productRepo.GetProducts()
+            return _productRepo.GetProducts().ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider);
+
+            /*var list = from p in _productRepo.GetProducts()
                        select new ProductViewModel()
                        {
                            Id = p.Id,
-                           name = p.Name,
+                           Name = p.Name,
                            Description = p.Description,
                            ImageUrl = p.ImageUrl,
-                           price = p.Price
+                           Price = p.Price,
 
                        };
-            return list;
+            return list;*/
         }
 
         public ProductViewModel GetProduct(Guid id)
         {
-            ProductViewModel productViewModel = new ProductViewModel();
-            var productFromDb = _productRepo.GetProduct(id);
+            return _mapper.Map<ProductViewModel>(_productRepo.GetProduct(id));
+        }
 
-            productViewModel.Description = productFromDb.Description;
-            productViewModel.Id = productFromDb.Id;
-            productViewModel.ImageUrl = productFromDb.ImageUrl;
-            productViewModel.name = productFromDb.Name;
-            productViewModel.price = productFromDb.Price;
-            productViewModel.Category = new CategoryViewModel();
-            productViewModel.Category.Id = productFromDb.Category.Id;
-            productViewModel.Category.Name = productFromDb.Category.Name;
+        public void AddProduct(ProductViewModel data)
+        {
+           _productRepo.AddProduct(_mapper.Map<Product>(data));
+        }
 
-            return productViewModel;
+        public void DeleteProduct(Guid id)
+        {
+            if (_productRepo.GetProduct(id) != null)
+                _productRepo.DeleteProduct(id);
         }
     }
 }

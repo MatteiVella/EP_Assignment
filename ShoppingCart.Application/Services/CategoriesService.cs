@@ -1,5 +1,6 @@
 ﻿using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
+using ShoppingCart.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +8,16 @@ using System.Text;
 
 namespace ShoppingCart.Application.Services
 {
-    class CategoriesService : ICategoriesService
+    public class CategoriesService : ICategoriesService
     {
-        private ICategoriesService _categoriesService;
-        public CategoriesService(ICategoriesService categories)
+        private ICategoriesRepository _categoriesRepo;
+        public CategoriesService(ICategoriesRepository categories)
         {
-            _categoriesService = categories;
+            _categoriesRepo = categories;
         }
         public IQueryable<CategoryViewModel> GetCategories()
         {
-            var list = from c in _categoriesService.GetCategories()
+            var list = from c in _categoriesRepo.GetCategories()
                        select new CategoryViewModel()
                        {
                            Id = c.Id,

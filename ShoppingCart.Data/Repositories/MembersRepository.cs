@@ -3,22 +3,21 @@ using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace ShoppingCart.Data.Repositories
 {
-    public class CategoriesRepository : ICategoriesRepository
+    public class MembersRepository : IMembersRepository
     {
         private ShoppingCartDbContext _context;
-        public CategoriesRepository(ShoppingCartDbContext context)
+        public MembersRepository(ShoppingCartDbContext context)
         {
             _context = context;
         }
-        public IQueryable<Category> GetCategories()
+        public void AddMember(Member m)
         {
-            return _context.Categories;
+            _context.Members.Add(m);
+            _context.SaveChanges();
         }
-        
     }
 }
