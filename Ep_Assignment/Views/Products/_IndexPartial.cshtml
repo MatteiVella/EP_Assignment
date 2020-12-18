@@ -1,0 +1,27 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3">
+                <div class="card-image" style="width: 18em;background-color:white;text-align:center;">
+                    <a href="/Products/Details?id=@product.Id">
+                        <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name">
+                        <div class="card-body">
+                            <h6 class="card-title" style="color:black">@product.Name</h6>
+                            <p class="card-text" style="color:black; font:bold; text-align:center">€@product.Price</p>
+                        </div>
+                    </a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <a href="/Products/Delete?id=@product.Id" onclick="return window.confirm('Are You Sure?')" class="btn btn-danger">Delete</a>
+                        }
+                    }
+                </div>
+                <br />
+            </div>
+            <br />
+        }
+    </div>
+</div>

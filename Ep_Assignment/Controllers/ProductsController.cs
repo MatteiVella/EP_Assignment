@@ -9,6 +9,7 @@ using ShoppingCart.Application.Services;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ep_Assignment.Controllers
 {
@@ -37,6 +38,7 @@ namespace Ep_Assignment.Controllers
         }
 
         [HttpGet] //Loads the field with blanks
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
             var catList = _categoriesService.GetCategories();
@@ -45,6 +47,7 @@ namespace Ep_Assignment.Controllers
         }
 
         [HttpPost]//Called when the user clicks button
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(ProductViewModel data, IFormFile file)
         {
             try

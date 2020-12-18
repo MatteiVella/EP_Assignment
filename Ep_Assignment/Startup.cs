@@ -46,6 +46,13 @@ namespace Ep_Assignment
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 5;
+            });
+
 
             DependancyContainer.RegisterServices(services, Configuration.GetConnectionString("DefaultConnection"));
         }

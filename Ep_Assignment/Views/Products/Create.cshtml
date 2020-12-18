@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Add A Product</h1>
 
 <h4>ProductViewModel</h4>
 <hr />
@@ -40,17 +40,17 @@
 
             <div class="form-group">
                 <label class="control-label">Category Id</label>
-                <select asp-for="Category.Id" class="form-control" >
-                    @foreach(var category in ViewBag.Categories)
+                <select asp-for="Category.Id" class="form-control">
+                    @foreach (var category in ViewBag.Categories)
                     {
                         <option value="@category.Id">@category.Name</option>
                     }
                 </select>
                 <span asp-validation-for="Category.Id" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-outline-dark" />
-            </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-outline-dark" />
+                </div>
         </form>
     </div>
 </div>

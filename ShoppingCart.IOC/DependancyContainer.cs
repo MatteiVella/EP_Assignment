@@ -5,6 +5,7 @@ using MongoDB.Driver.Core.Configuration;
 using ShoppingCart.Application.AutoMapper;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.Services;
+using ShoppingCart.Application.ViewModels;
 using ShoppingCart.Data.Context;
 using ShoppingCart.Data.Repositories;
 using ShoppingCart.Domain.Interfaces;
@@ -28,6 +29,9 @@ namespace ShoppingCart.IOC
 
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<ICategoriesService, CategoriesService>();
+
+            services.AddScoped<IMembersRepository, MembersRepository>();
+            services.AddScoped<IMembersService, MembersService>();
 
             services.AddAutoMapper(typeof(AutoMapperConfiguration));
             AutoMapperConfiguration.RegisterMappings();

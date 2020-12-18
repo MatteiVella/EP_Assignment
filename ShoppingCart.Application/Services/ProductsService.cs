@@ -25,18 +25,6 @@ namespace ShoppingCart.Application.Services
         public IQueryable<ProductViewModel> GetProducts()
         {
             return _productRepo.GetProducts().ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider);
-
-            /*var list = from p in _productRepo.GetProducts()
-                       select new ProductViewModel()
-                       {
-                           Id = p.Id,
-                           Name = p.Name,
-                           Description = p.Description,
-                           ImageUrl = p.ImageUrl,
-                           Price = p.Price,
-
-                       };
-            return list;*/
         }
 
         public ProductViewModel GetProduct(Guid id)
