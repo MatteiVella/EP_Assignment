@@ -19,6 +19,7 @@ namespace ShoppingCart.Data.Context
 
         public DbSet<Member> Members { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
