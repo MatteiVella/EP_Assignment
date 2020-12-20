@@ -15,9 +15,52 @@
     <Compile Remove="Migrations\20201214201929_SecondMigrationWithCategoryId.Designer.cs" />
     <Compile Remove="Migrations\20201214202052_SecondMigrationWithCategoryId.cs" />
     <Compile Remove="Migrations\20201214202052_SecondMigrationWithCategoryId.Designer.cs" />
+    <Compile Remove="Migrations\20201219230837_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201219230837_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201219231411_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201219231411_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201219232016_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201219232016_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201219233252_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201219233252_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201219234651_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201219234651_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201219234812_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201219234812_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220000157_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220000157_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220000328_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220000328_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220002238_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220002238_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220003631_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220003631_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220005815_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220005815_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220012201_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220012201_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220095622_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220095622_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220100739_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220100739_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220102257_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220102257_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220103020_CreatingCartTable.cs" />
+    <Compile Remove="Migrations\20201220103020_CreatingCartTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220105600_CreatingOrderDetailsTable.cs" />
+    <Compile Remove="Migrations\20201220105600_CreatingOrderDetailsTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220110735_AddingAuotGuidToOrderDetails.cs" />
+    <Compile Remove="Migrations\20201220110735_AddingAuotGuidToOrderDetails.Designer.cs" />
+    <Compile Remove="Migrations\20201220112516_AddingOrderDetailsWithAutoGuidAndFKs.cs" />
+    <Compile Remove="Migrations\20201220112516_AddingOrderDetailsWithAutoGuidAndFKs.Designer.cs" />
+    <Compile Remove="Migrations\20201220141825_AddingIdToMembersTable.cs" />
+    <Compile Remove="Migrations\20201220141825_AddingIdToMembersTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220194716_ChangingTableStructures.cs" />
+    <Compile Remove="Migrations\20201220194716_ChangingTableStructures.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.9" />

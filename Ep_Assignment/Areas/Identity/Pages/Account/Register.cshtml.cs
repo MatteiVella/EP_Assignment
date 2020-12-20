@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using ShoppingCart.Application.ViewModels;
+using ShoppingCart.Domain.Models;
 
 namespace Ep_Assignment.Areas.Identity.Pages.Account
 {
@@ -92,14 +93,18 @@ namespace Ep_Assignment.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    Guid GuidResult = Guid.Empty;
+                    Guid.TryParse(user.Id, out GuidResult);
                     await _userManager.AddToRoleAsync(user, "User");
                     _membersService.AddMember(
                         new ShoppingCart.Application.ViewModels.MemberViewModel()
                         {
                             Email = Input.Email,
                             FirstName = Input.FirstName,
-                            LastName = Input.LastName
-                        });
+                            LastName = Input.LastName,
+                            UserId = GuidResult
+
+                        }) ;
 
 
                     _logger.LogInformation("User created a new account with password.");

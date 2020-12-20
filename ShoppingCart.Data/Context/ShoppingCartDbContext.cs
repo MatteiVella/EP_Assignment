@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,16 @@ namespace ShoppingCart.Data.Context
 
         public DbSet<Member> Members { get; set; }
 
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+
+        public DbSet<Order> Order { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Product>().Property(x => x.Id).HasDefaultValueSql("NewID()");
+            modelBuilder.Entity<OrderStatus>().Property(x => x.Id).HasDefaultValueSql("NewID()");
         } 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

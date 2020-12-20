@@ -30,6 +30,15 @@ namespace Ep_Assignment
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -52,6 +61,8 @@ namespace Ep_Assignment
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 5;
             });
+
+
 
 
             DependancyContainer.RegisterServices(services, Configuration.GetConnectionString("DefaultConnection"));
@@ -78,6 +89,8 @@ namespace Ep_Assignment
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

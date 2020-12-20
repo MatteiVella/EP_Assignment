@@ -20,10 +20,25 @@ namespace ShoppingCart.Application.Services
             {
                 Email = m.Email,
                 FirstName = m.FirstName,
-                LastName = m.LastName
+                LastName = m.LastName,
+                UserId = m.UserId
+                
             };
 
             _membersRepo.AddMember(newMember);
+        }
+
+        public MemberViewModel GetMember(string name)
+        {
+            MemberViewModel memberViewModel = new MemberViewModel();
+            var memberFromDb = _membersRepo.GetMember(name);
+
+            memberViewModel.Email = memberFromDb.Email;
+            memberViewModel.UserId = memberFromDb.UserId;
+            memberViewModel.LastName = memberFromDb.LastName;
+            memberViewModel.FirstName = memberFromDb.FirstName;
+
+            return memberViewModel;
         }
     }
 }

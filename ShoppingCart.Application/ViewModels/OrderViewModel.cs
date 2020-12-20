@@ -1,24 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace ShoppingCart.Domain.Models
+namespace ShoppingCart.Application.ViewModels
 {
-    public class Order
+    public class OrderViewModel
     {
-        [Key]
+
         public Guid Id { get; set; }
         public string Email { get; set; }
         public DateTime DatePlaced { get; set; }
-
-        [ForeignKey("UserId")]
         public virtual Member User { get; set; }
-
-        [ForeignKey("OrderStatusId")]
         public virtual OrderStatus OrderStatus { get; set; }
     }
-
 }

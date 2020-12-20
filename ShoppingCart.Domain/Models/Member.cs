@@ -13,5 +13,6 @@ namespace ShoppingCart.Domain.Models
         public string LastName { get; set; }
         [Key]
         public string Email { get; set; }
+        public Guid UserId { get; set; }
     }
 }
