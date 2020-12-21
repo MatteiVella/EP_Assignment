@@ -3,14 +3,43 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ShoppingCart.Data.Migrations
 {
-    public partial class AddingIdToMembersTable : Migration
+    public partial class MultipleChangesToTheDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Members",
+                table: "Members");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Email",
+                table: "Members",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(450)");
+
+            migrationBuilder.AddColumn<Guid>(
                 name: "UserId",
                 table: "Members",
-                nullable: true);
+                nullable: false,
+                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Members",
+                table: "Members",
+                column: "UserId");
+
+            migrationBuilder.CreateTable(
+                name: "OrderStatus",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NewID()"),
+                    Status = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderStatus", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Order",
@@ -19,16 +48,23 @@ namespace ShoppingCart.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     DatePlaced = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<Guid>(nullable: true),
+                    OrderStatusId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Order_OrderStatus_OrderStatusId",
+                        column: x => x.OrderStatusId,
+                        principalTable: "OrderStatus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Order_Members_UserId",
                         column: x => x.UserId,
                         principalTable: "Members",
-                        principalColumn: "Email",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -60,6 +96,11 @@ namespace ShoppingCart.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Order_OrderStatusId",
+                table: "Order",
+                column: "OrderStatusId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Order_UserId",
                 table: "Order",
                 column: "UserId");
@@ -83,9 +124,29 @@ namespace ShoppingCart.Data.Migrations
             migrationBuilder.DropTable(
                 name: "Order");
 
+            migrationBuilder.DropTable(
+                name: "OrderStatus");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Members",
+                table: "Members");
+
             migrationBuilder.DropColumn(
                 name: "UserId",
                 table: "Members");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Email",
+                table: "Members",
+                type: "nvarchar(450)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Members",
+                table: "Members",
+                column: "Email");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.Application.Interfaces;
+using ShoppingCart.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,13 @@ namespace Ep_Assignment.Controllers
         {
             _ordersService = ordersService;
             _ordersDetailsService = ordersDetailsService;
+        }
+
+        public IActionResult Checkout(Guid orderId)
+        {
+            var listOfOrderItems = _ordersDetailsService.GetOrderItems(orderId);
+            return View(listOfOrderItems);
+
         }
     }
 }

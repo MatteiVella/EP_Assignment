@@ -15,7 +15,7 @@ namespace ShoppingCart.Domain.Models
         public DateTime DatePlaced { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual Member User { get; set; }
+        public virtual Member Member { get; set; }
 
         [ForeignKey("OrderStatusId")]
         public virtual OrderStatus OrderStatus { get; set; }

@@ -12,12 +12,12 @@ namespace ShoppingCart.Application.Services
     public class OrdersDetailsService : IOrdersDetailsService
     {
         public Guid ShoppingCartId { get; set; }
-        private IOrdersDetailsRepository _orderRepo;
+        private IOrdersDetailsRepository _orderDetailsRepo;
         private IProductsRepository _productRepo;
         private IMembersRepository _memberRepo;
-        public OrdersDetailsService(IOrdersDetailsRepository orderRepo)
+        public OrdersDetailsService(IOrdersDetailsRepository orderDetailsRepo)
         {
-            _orderRepo = orderRepo;
+            _orderDetailsRepo = orderDetailsRepo;
         }
         public void AddToCart(OrderDetailsViewModel odvm)
         {
@@ -32,7 +32,7 @@ namespace ShoppingCart.Application.Services
             od.Quantity = 1;
             od.SoldPrice = productFromDb.Price;
 
-            _orderRepo.AddToCart(od);
+            _orderDetailsRepo.AddToCart(od);
 
         }
 
@@ -43,13 +43,13 @@ namespace ShoppingCart.Application.Services
 
         public Guid GetOrderId(Guid UserId)
         {
-            return _orderRepo.GetOrderId(UserId);
+            return _orderDetailsRepo.GetOrderId(UserId);
         }
 
         public IQueryable<OrderDetailsViewModel> GetOrderItems(Guid orderId)
         {
 
-            var list = from p in _orderRepo.GetOrderItems(orderId)
+            var list = from p in _orderDetailsRepo.GetOrderItems(orderId)
                        select new OrderDetailsViewModel()
                        {
                            Id = p.Id,

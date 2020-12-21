@@ -37,8 +37,12 @@ namespace ShoppingCart.Data.Migrations
 
             modelBuilder.Entity("ShoppingCart.Domain.Models.Member", b =>
                 {
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -48,10 +52,7 @@ namespace ShoppingCart.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Email");
+                    b.HasKey("UserId");
 
                     b.ToTable("Members");
                 });
@@ -71,8 +72,8 @@ namespace ShoppingCart.Data.Migrations
                     b.Property<Guid?>("OrderStatusId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -186,7 +187,7 @@ namespace ShoppingCart.Data.Migrations
                         .WithMany()
                         .HasForeignKey("OrderStatusId");
 
-                    b.HasOne("ShoppingCart.Domain.Models.Member", "User")
+                    b.HasOne("ShoppingCart.Domain.Models.Member", "Member")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });

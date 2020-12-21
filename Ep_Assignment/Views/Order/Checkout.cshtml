@@ -1,8 +1,39 @@
-﻿
+﻿@model ShoppingCart.Application.ViewModels.OrderDetailsViewModel
 @{
     ViewData["Title"] = "Checkout";
-    Layout = "~/Areas/Identity/Pages/_ViewStart.cshtml";
 }
 
-<h1>Checkout</h1>
+<header>
+    <div>
+        <h1 style="
+        text-align: center;
+        font: bold;
+        font-family: Marker Felt, fantasy
+        ">
+            >>>>>> YOUR BASKET <<<<<<
+        </h1>
+        <br /><br />
+    </div>
+</header>
+
+
+<div>
+    <table border="0">
+        <tbody>
+            <tr>
+                <th colspan="2">Item</th>
+                <th>Amount</th>
+                <th>Total Price</th>
+            </tr>
+            <tr>
+                <td class="image">
+                    <img src="@Model.Product.ImageUrl" class="img-fluid" style="max-height:30px" />
+                </td>
+                <td class="productName">@Model.Product.Name</td>
+                <td class="amount">1</td>
+                <td class="price">£@Model.Product.Price</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 

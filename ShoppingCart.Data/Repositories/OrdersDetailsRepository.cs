@@ -49,7 +49,7 @@ namespace ShoppingCart.Data.Repositories
         {
             return _context.Order
                 .Where(x => x.OrderStatus.Status == "Not_Checked_Out")
-                .SingleOrDefault(x => x.User.UserId == userId).Id;
+                .SingleOrDefault(x => x.Member.UserId == userId).Id;
         }
 
         public IQueryable<OrderDetails> GetOrderItems(Guid orderId)

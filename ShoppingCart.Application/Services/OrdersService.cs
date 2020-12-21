@@ -21,7 +21,7 @@ namespace ShoppingCart.Application.Services
             o.DatePlaced = DateTime.UtcNow;
             o.Email = orderViewModel.Email;
             o.OrderStatus.Id = orderViewModel.OrderStatus.Id;
-            o.User.UserId = orderViewModel.User.UserId;
+            o.Member.UserId = orderViewModel.User.UserId;
         }
 
     }

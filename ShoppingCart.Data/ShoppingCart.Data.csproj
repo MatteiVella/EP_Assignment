@@ -55,8 +55,24 @@
     <Compile Remove="Migrations\20201220112516_AddingOrderDetailsWithAutoGuidAndFKs.Designer.cs" />
     <Compile Remove="Migrations\20201220141825_AddingIdToMembersTable.cs" />
     <Compile Remove="Migrations\20201220141825_AddingIdToMembersTable.Designer.cs" />
+    <Compile Remove="Migrations\20201220142003_AddingIdToMembersTable.cs" />
+    <Compile Remove="Migrations\20201220142003_AddingIdToMembersTable.Designer.cs" />
     <Compile Remove="Migrations\20201220194716_ChangingTableStructures.cs" />
     <Compile Remove="Migrations\20201220194716_ChangingTableStructures.Designer.cs" />
+    <Compile Remove="Migrations\20201220203111_AddingNewIDToOrderStatus.cs" />
+    <Compile Remove="Migrations\20201220203111_AddingNewIDToOrderStatus.Designer.cs" />
+    <Compile Remove="Migrations\20201220232356_AddingIDToUserIdInsteadOfEmail.cs" />
+    <Compile Remove="Migrations\20201220232356_AddingIDToUserIdInsteadOfEmail.Designer.cs" />
+    <Compile Remove="Migrations\20201220232715_AddingIDToUserIdInsteadOfEmail.cs" />
+    <Compile Remove="Migrations\20201220232715_AddingIDToUserIdInsteadOfEmail.Designer.cs" />
+    <Compile Remove="Migrations\20201220233142_AddingIDToUserIdInsteadOfEmail.cs" />
+    <Compile Remove="Migrations\20201220233142_AddingIDToUserIdInsteadOfEmail.Designer.cs" />
+    <Compile Remove="Migrations\20201220233549_AddingIDToUserIdInsteadOfEmail.cs" />
+    <Compile Remove="Migrations\20201220233549_AddingIDToUserIdInsteadOfEmail.Designer.cs" />
+    <Compile Remove="Migrations\20201220234303_AddingIDToUserIdInsteadOfEmail.cs" />
+    <Compile Remove="Migrations\20201220234303_AddingIDToUserIdInsteadOfEmail.Designer.cs" />
+    <Compile Remove="Migrations\20201220235339_MultipleChangesToTheDB.cs" />
+    <Compile Remove="Migrations\20201220235339_MultipleChangesToTheDB.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
