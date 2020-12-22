@@ -1,4 +1,4 @@
-﻿@model ShoppingCart.Application.ViewModels.OrderDetailsViewModel
+﻿@model IEnumerable<ShoppingCart.Application.ViewModels.OrderDetailsViewModel>
 @{
     ViewData["Title"] = "Checkout";
 }
@@ -18,20 +18,43 @@
 
 
 <div>
-    <table border="0">
-        <tbody>
+    <table class="table">
+        <thead>
             <tr>
                 <th colspan="2">Item</th>
                 <th>Amount</th>
-                <th>Total Price</th>
+                <th>Price Per Product</th>
             </tr>
+        </thead>
+        <tbody>
+                @{ double totalPerProduct = 0;}
+                @foreach (var m in Model)
+                {
+                    totalPerProduct = m.Quantity * m.Product.Price;
+                <tr>
+                    <td class="image">
+                        <img src="@m.Product.ImageUrl" class="img-fluid" style="max-height:70px;border-radius:20px" />
+                    </td>
+                    <td class="productName">@m.Product.Name</td>
+                    <td class="amount">
+                        <input class="form-control" type="number" name="quantity" value=@m.Quantity style="width:60px">
+                    </td>
+                    <td class="price">£@totalPerProduct</td>
+                </tr>
+                }
+        </tbody>
+        <thead>
             <tr>
-                <td class="image">
-                    <img src="@Model.Product.ImageUrl" class="img-fluid" style="max-height:30px" />
+                <th colspan="2"></th>
+                <th colspan="1"></th>
+                <th colspan="1">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3">
                 </td>
-                <td class="productName">@Model.Product.Name</td>
-                <td class="amount">1</td>
-                <td class="price">£@Model.Product.Price</td>
+                <td style="font-size:32px;text-decoration:underline">£@ViewBag.OrderTotalPrice</td>
             </tr>
         </tbody>
     </table>

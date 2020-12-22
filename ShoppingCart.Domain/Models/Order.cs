@@ -13,11 +13,15 @@ namespace ShoppingCart.Domain.Models
         public Guid Id { get; set; }
         public string Email { get; set; }
         public DateTime DatePlaced { get; set; }
+        
+        public double OrderTotalPrice { get; set; }
 
-        [ForeignKey("UserId")]
+        [ForeignKey("Member")]
+        public Guid UserId { get; set; }
         public virtual Member Member { get; set; }
 
-        [ForeignKey("OrderStatusId")]
+        [ForeignKey("OrderStatus")]
+        public Guid OrderStatusId { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
     }
 

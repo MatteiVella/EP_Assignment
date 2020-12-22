@@ -20,14 +20,16 @@ namespace ShoppingCart.Data.Repositories
             _context = context;
         }
 
-        public void AddToCart(OrderDetails orderDetails)
+        public void AddToCart(Guid productId, Guid orderId)
         {
             var orderItem = _context.OrderDetails.SingleOrDefault(
-                x => x.OrderId == orderDetails.OrderId && x.ProductId == orderDetails.ProductId);
+                x => x.OrderId == orderId && x.ProductId == productId);
+            var product = _context.Products.SingleOrDefault(
+                x => x.Id == productId);
 
             if(orderItem == null)
             {
-                _context.OrderDetails.Add(orderDetails);
+                _context.OrderDetails.Add(new OrderDetails() { OrderId = orderId, ProductId = productId,Quantity = 1,SoldPrice = product.Price  }) ;
             }
             else
             {
@@ -47,14 +49,50 @@ namespace ShoppingCart.Data.Repositories
 
         public Guid GetOrderId(Guid userId)
         {
-            return _context.Order
+            if(userId == Guid.Empty)
+            {
+                return Guid.Empty;
+            }
+            var Order = _context.Order
                 .Where(x => x.OrderStatus.Status == "Not_Checked_Out")
-                .SingleOrDefault(x => x.Member.UserId == userId).Id;
+                .SingleOrDefault(x => x.UserId == userId);
+            return Order.Id;
+        }
+
+        public Guid GetStatusId(string StatusName)
+        {
+
+            Guid status = _context.OrderStatus.SingleOrDefault(x => x.Status == StatusName).Id;
+            return status;
         }
 
         public IQueryable<OrderDetails> GetOrderItems(Guid orderId)
         {
-            return _context.OrderDetails.Where(x => x.Id == orderId);
+            return _context.OrderDetails.Where(x => x.OrderId == orderId);
+        }
+
+        public double GetTotal(Guid orderId)
+        {
+            double total = 0;
+            foreach(var i in _context.OrderDetails.Where(x => x.OrderId == orderId))
+            {
+                double totalOfOneProduct = i.Quantity * i.Product.Price;
+                total = total + totalOfOneProduct;
+            }
+            return total;
+            
+        }
+
+        public OrderDetails GetOneOrderDetail(Guid orderId, Guid productId)
+        {
+            return _context.OrderDetails.Where(x => x.ProductId == productId).SingleOrDefault(x => x.OrderId == orderId);
+        }
+
+        public void DeleteFromOrderDetails(Guid productId, Guid orderId)
+        {
+            var orderDetail = GetOneOrderDetail(orderId, productId);
+            _context.OrderDetails.Remove(orderDetail);
+            _context.SaveChanges();
         }
     }
 }

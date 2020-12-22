@@ -69,10 +69,13 @@ namespace ShoppingCart.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("OrderStatusId")
+                    b.Property<Guid>("OrderStatusId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<double>("OrderTotalPrice")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -185,11 +188,15 @@ namespace ShoppingCart.Data.Migrations
                 {
                     b.HasOne("ShoppingCart.Domain.Models.OrderStatus", "OrderStatus")
                         .WithMany()
-                        .HasForeignKey("OrderStatusId");
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ShoppingCart.Domain.Models.Member", "Member")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ShoppingCart.Domain.Models.OrderDetails", b =>

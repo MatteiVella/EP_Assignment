@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ShoppingCart.Data.Migrations
 {
-    public partial class MultipleChangesToTheDB : Migration
+    public partial class MultipleChangesToDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,9 +47,10 @@ namespace ShoppingCart.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Email = table.Column<string>(nullable: true),
-                    DatePlaced = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: true),
-                    OrderStatusId = table.Column<Guid>(nullable: true)
+                    DatePlaced = table.Column<DateTime>(nullable: true),
+                    OrderTotalPrice = table.Column<double>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
+                    OrderStatusId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,13 +60,13 @@ namespace ShoppingCart.Data.Migrations
                         column: x => x.OrderStatusId,
                         principalTable: "OrderStatus",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Order_Members_UserId",
                         column: x => x.UserId,
                         principalTable: "Members",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

@@ -11,6 +11,7 @@ namespace ShoppingCart.Application.ViewModels
         public Guid Id { get; set; }
         public string Email { get; set; }
         public DateTime DatePlaced { get; set; }
+        public double OrderTotalPrice { get; set; }
         public virtual Member User { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
     }

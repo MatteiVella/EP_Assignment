@@ -24,6 +24,8 @@ namespace ShoppingCart.Data.Context
 
         public DbSet<Order> Order { get; set; }
 
+        public DbSet<OrderStatus> OrderStatus { get;set;}
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

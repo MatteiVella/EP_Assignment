@@ -73,6 +73,18 @@
     <Compile Remove="Migrations\20201220234303_AddingIDToUserIdInsteadOfEmail.Designer.cs" />
     <Compile Remove="Migrations\20201220235339_MultipleChangesToTheDB.cs" />
     <Compile Remove="Migrations\20201220235339_MultipleChangesToTheDB.Designer.cs" />
+    <Compile Remove="Migrations\20201220235446_MultipleChangesToTheDB.cs" />
+    <Compile Remove="Migrations\20201220235446_MultipleChangesToTheDB.Designer.cs" />
+    <Compile Remove="Migrations\20201221214909_AddingTotalPriceToOrder.cs" />
+    <Compile Remove="Migrations\20201221214909_AddingTotalPriceToOrder.Designer.cs" />
+    <Compile Remove="Migrations\20201221223119_AddingTotalPriceToOrder.cs" />
+    <Compile Remove="Migrations\20201221223119_AddingTotalPriceToOrder.Designer.cs" />
+    <Compile Remove="Migrations\20201222133641_ChangingTheFKOfOrderTable.cs" />
+    <Compile Remove="Migrations\20201222133641_ChangingTheFKOfOrderTable.Designer.cs" />
+    <Compile Remove="Migrations\20201222134125_MultipleChangesToDb.cs" />
+    <Compile Remove="Migrations\20201222134125_MultipleChangesToDb.Designer.cs" />
+    <Compile Remove="Migrations\20201222134417_MultipleChangesToDb.cs" />
+    <Compile Remove="Migrations\20201222134417_MultipleChangesToDb.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

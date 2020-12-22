@@ -19,7 +19,7 @@ namespace Ep_Assignment.Controllers
         private ICategoriesService _categoriesService;
         private IWebHostEnvironment _environment;
 
-        public ProductsController(IProductsService productsService, ICategoriesService categoriesService, IWebHostEnvironment environment)
+        public ProductsController(IProductsService productsService, ICategoriesService categoriesService,IWebHostEnvironment environment)
         {
             _productsService = productsService;
             _categoriesService = categoriesService;
