@@ -23,10 +23,11 @@ namespace ShoppingCart.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void DeleteProduct(Guid id)
+        public void HideProduct(Guid id)
         {
             var myProduct = GetProduct(id);
-            _context.Products.Remove(myProduct);
+            myProduct.isVisible = false;
+            _context.Update(myProduct);
             _context.SaveChanges();
         }
 

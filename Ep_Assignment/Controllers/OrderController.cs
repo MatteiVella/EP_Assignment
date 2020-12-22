@@ -61,7 +61,7 @@ namespace Ep_Assignment.Controllers
         {
             _ordersDetailsService.DeleteFromOrderDetails(productId,orderId);
             TempData["feedback"] = "Product was deleted successfully";
-            return RedirectToAction("Index");
+            return RedirectToAction("Checkout");
         }
     }
 }

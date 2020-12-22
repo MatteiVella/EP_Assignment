@@ -40,6 +40,9 @@
                         <input class="form-control" type="number" name="quantity" value=@m.Quantity style="width:60px">
                     </td>
                     <td class="price">£@totalPerProduct</td>
+                    <td>
+                        <a href="/Order/DeleteFromOrderDetails?productId=@m.Product.Id&orderId=@m.Order.Id" class="btn btn-outline-dark">Remove From Cart</a>
+                    </td>
                 </tr>
                 }
         </tbody>

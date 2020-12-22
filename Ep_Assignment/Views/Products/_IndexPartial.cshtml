@@ -2,6 +2,8 @@
     <div class="row">
         @foreach (var product in Model)
         {
+            if (product.isVisible == true)
+            {
             <div class="col-md-3">
                 <div class="card-image" style="width: 18em;background-color:white;text-align:center;">
                     <a href="/Products/Details?id=@product.Id">
@@ -15,13 +17,14 @@
                     {
                         if (User.IsInRole("Admin"))
                         {
-                            <a href="/Products/Delete?id=@product.Id" onclick="return window.confirm('Are You Sure?')" class="btn btn-danger">Delete</a>
+                            <a href="/Products/Hide?id=@product.Id" onclick="return window.confirm('Are You Sure?')" class="btn btn-danger">Hide</a>
                         }
                     }
                 </div>
                 <br />
             </div>
             <br />
+            }
         }
     </div>
 </div>

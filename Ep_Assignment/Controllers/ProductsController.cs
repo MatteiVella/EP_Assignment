@@ -82,9 +82,9 @@ namespace Ep_Assignment.Controllers
             return View();
         }
 
-        public IActionResult Delete(Guid id)
+        public IActionResult Hide(Guid id)
         {
-            _productsService.DeleteProduct(id);
+            _productsService.HideProduct(id);
             TempData["feedback"] = "Product was deleted successfully";
             return RedirectToAction("Index");
         }
