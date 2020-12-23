@@ -42,5 +42,10 @@ namespace ShoppingCart.Application.Services
             if (_productRepo.GetProduct(id) != null)
                 _productRepo.HideProduct(id);
         }
+
+        public IQueryable<ProductViewModel> GetProductsByCategory(string categoryName)
+        {
+            return _productRepo.GetProductsByCategory(categoryName).ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider);
+        }
     }
 }

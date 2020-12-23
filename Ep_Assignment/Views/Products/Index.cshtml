@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShoppingCart.Application.ViewModels.ProductViewModel>
+﻿@model IPagedList<ShoppingCart.Application.ViewModels.ProductViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -16,5 +16,36 @@
     </div>
 </header>
 
+@{
+    string categoryName = "";
+
+}
+
+<div style="text-align:center">
+    <form action="/Products/Index?categoryName=@categoryName" method="POST">
+        <label class="control-label">Filter By Category </label>
+        <select asp-for="@categoryName" asp-items="ViewBag.categoryName" class="form-control col-md-4 offset-md-4">
+            <option></option>
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.Name">@category.Name</option>
+            }
+        </select>
+        <br />
+        <input type="submit" value ="Filter" class="btn btn-outline-dark" />
+        <br />
+        <hr />
+    </form>
+</div>
+
 <partial name="_IndexPartial" />
+
+<div>
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), new X.PagedList.Web.Common.PagedListRenderOptionsBase
+{
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+    Display = X.PagedList.Web.Common.PagedListDisplayMode.IfNeeded
+})
+</div>
 

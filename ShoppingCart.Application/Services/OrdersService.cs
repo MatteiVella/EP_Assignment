@@ -11,7 +11,6 @@ namespace ShoppingCart.Application.Services
     public class OrdersService : IOrdersService
     {
         private IOrdersRepository _ordersRep;
-        private IMembersRepository membersRepository;
         public OrdersService(IOrdersRepository ordersRep)
         {
             _ordersRep = ordersRep;

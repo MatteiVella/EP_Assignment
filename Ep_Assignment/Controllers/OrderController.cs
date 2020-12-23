@@ -14,7 +14,6 @@ namespace Ep_Assignment.Controllers
     {
         private IOrdersDetailsService _ordersDetailsService;
         private IOrdersService _ordersService; 
-        private readonly UserManager<IdentityUser> _userManager;
 
         public OrderController(IOrdersDetailsService ordersDetailsService, IOrdersService ordersService)
         {

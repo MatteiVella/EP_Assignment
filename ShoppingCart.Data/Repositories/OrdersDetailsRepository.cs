@@ -68,13 +68,13 @@ namespace ShoppingCart.Data.Repositories
 
         public IQueryable<OrderDetails> GetOrderItems(Guid orderId)
         {
-            return _context.OrderDetails.Where(x => x.OrderId == orderId);
+            return _context.OrderDetails.Where(x => x.OrderId == orderId && x.Product.isVisible == true);
         }
 
         public double GetTotal(Guid orderId)
         {
             double total = 0;
-            foreach(var i in _context.OrderDetails.Where(x => x.OrderId == orderId))
+            foreach (var i in _context.OrderDetails.Where(x => x.OrderId == orderId && x.Product.isVisible == true))
             {
                 double totalOfOneProduct = i.Quantity * i.Product.Price;
                 total = total + totalOfOneProduct;

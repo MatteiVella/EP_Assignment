@@ -15,5 +15,7 @@ namespace ShoppingCart.Application.Interfaces
         void AddProduct(ProductViewModel data);
 
         void HideProduct(Guid id);
+
+        IQueryable<ProductViewModel> GetProductsByCategory(string categoryName);
     }
 }

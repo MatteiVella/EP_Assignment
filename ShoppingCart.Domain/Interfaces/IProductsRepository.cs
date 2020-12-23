@@ -12,5 +12,6 @@ namespace ShoppingCart.Domain.Interfaces
         Product GetProduct(Guid id);
         void AddProduct(Product p);
         void HideProduct(Guid id);
+        IQueryable<Product> GetProductsByCategory(string categoryName);
     }   
 }

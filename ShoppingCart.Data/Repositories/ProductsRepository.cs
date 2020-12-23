@@ -38,7 +38,16 @@ namespace ShoppingCart.Data.Repositories
 
         public IQueryable<Product> GetProducts()
         {
-            return _context.Products;
+            return _context.Products.Where(x => x.isVisible == true);
+        }
+
+        public IQueryable<Product> GetProductsByCategory(string categoryName)
+        {
+            if(categoryName == null)
+            {
+                return _context.Products.Where(x => x.isVisible == true);
+            }
+            return _context.Products.Where(x => x.isVisible == true && x.Category.Name == categoryName);
         }
     }
 }

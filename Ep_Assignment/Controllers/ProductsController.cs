@@ -9,6 +9,7 @@ using ShoppingCart.Application.Services;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using System.IO;
+using X.PagedList;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Ep_Assignment.Controllers
@@ -25,11 +26,29 @@ namespace Ep_Assignment.Controllers
             _categoriesService = categoriesService;
             _environment = environment;
         }
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index( int? page)
         {
-            var list = _productsService.GetProducts();
+            var catList = _categoriesService.GetCategories();
+            ViewBag.Categories = catList;
 
-            return View(list);
+            var list = _productsService.GetProducts();
+            var pageNumber = page ?? 1;
+            var pageSize = 10;
+
+            return View(list.ToPagedList(pageNumber, pageSize));
+        }
+        [HttpPost]
+        public IActionResult Index(int? page,string categoryName)
+        {
+
+            var catList = _categoriesService.GetCategories();
+            ViewBag.Categories = catList;
+            var list = _productsService.GetProductsByCategory(categoryName);
+         
+            var pageNumber = page ?? 1;
+            var pageSize = 10;
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
         public IActionResult Details(Guid id)
         {
