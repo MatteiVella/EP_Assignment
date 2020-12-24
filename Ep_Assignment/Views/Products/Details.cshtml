@@ -3,6 +3,14 @@
 @{
     ViewData["Title"] = "Details";
     //Layout = "~/Areas/Identity/Pages/_ViewStart.cshtml";
+    if (TempData["warning"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Warning"]</div>
+    }
+    if (TempData["success"] != null)
+    {
+        <div class="alert alert-warning">@TempData["Success"]</div>
+    }
 }
 <header>
     <div>

@@ -36,16 +36,16 @@ namespace ShoppingCart.Application.Services
         {
 
             Guid OrderId = _orderDetailsRepo.GetOrderId(UserId);
-            if(OrderId == Guid.Empty)
+            /*if(OrderId == Guid.Empty)
             {
                 Guid TempGuestGuid = Guid.NewGuid();
                 _ordersRepo.AddOrder(new Order { Id = TempGuestGuid, OrderStatusId = GetStatusId("Not_Checked_Out")});
                 return TempGuestGuid;
             }
             else
-            {
+            {*/
                 return OrderId;
-            }
+            //}
         }
 
         public Guid GetStatusId(string StatusName)
@@ -75,6 +75,10 @@ namespace ShoppingCart.Application.Services
             return _orderDetailsRepo.GetTotal(orderId);
         }
 
+        public void SetTotal(Guid orderId)
+        {
+            _orderDetailsRepo.SetTotal(orderId);
+        }
         public void DeleteFromOrderDetails(Guid productId, Guid orderId)
         {
             if (_orderDetailsRepo.GetOneOrderDetail(orderId, productId) != null)

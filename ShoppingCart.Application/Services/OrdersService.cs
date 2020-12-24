@@ -15,13 +15,14 @@ namespace ShoppingCart.Application.Services
         {
             _ordersRep = ordersRep;
         }
-        public void AddOrder(OrderViewModel orderViewModel)
+        public void AddOrder(Guid userId)
         {
-            Order o = new Order();
-            o.DatePlaced = DateTime.UtcNow;
-            o.Email = orderViewModel.Email;
-            o.OrderStatus.Id = orderViewModel.OrderStatus.Id;
-            o.Member.UserId = orderViewModel.User.UserId;
+            _ordersRep.AddOrder(userId);
+        }
+
+        public void CloseOrder(Guid orderId)
+        {
+            _ordersRep.CloseOrder(orderId);
         }
 
     }

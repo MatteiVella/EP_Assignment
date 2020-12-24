@@ -14,6 +14,7 @@ namespace ShoppingCart.Domain.Interfaces
         public IQueryable<OrderDetails> GetOrderItems(Guid orderId);
         public OrderDetails GetOneOrderDetail(Guid orderId, Guid productId);
         public double GetTotal(Guid orderId);
+        public void SetTotal(Guid orderId);
         public Guid GetStatusId(string StatusName);
         public void DeleteFromOrderDetails(Guid productId, Guid orderId);
 

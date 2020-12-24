@@ -87,12 +87,12 @@ namespace Ep_Assignment.Controllers
                 }
                 _productsService.AddProduct(data);
 
-                ViewData["feedback"] = "Product was added successfully";
+                TempData["Success"] = "Product was added successfully";
                 ModelState.Clear();
             }
             catch(Exception ex)
             {
-                ViewData["Warning"] = ex.Message;
+                TempData["Warning"] = ex.Message;
             }
 
             var catList = _categoriesService.GetCategories();

@@ -83,6 +83,20 @@ namespace ShoppingCart.Data.Repositories
             
         }
 
+        public void SetTotal(Guid orderId)
+        {
+            double total = 0;
+            foreach (var i in _context.OrderDetails.Where(x => x.OrderId == orderId && x.Product.isVisible == true))
+            {
+                double totalOfOneProduct = i.Quantity * i.Product.Price;
+                total = total + totalOfOneProduct;
+            }
+            var Order = _context.Order.SingleOrDefault(x => x.Id == orderId);
+            Order.OrderTotalPrice = total;
+            _context.Update(Order);
+            _context.SaveChanges();
+        }
+
         public OrderDetails GetOneOrderDetail(Guid orderId, Guid productId)
         {
             return _context.OrderDetails.Where(x => x.ProductId == productId).SingleOrDefault(x => x.OrderId == orderId);

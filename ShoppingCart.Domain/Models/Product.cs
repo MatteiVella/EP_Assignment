@@ -26,5 +26,7 @@ namespace ShoppingCart.Domain.Models
         public int CategoryId { get; set; }
         public Boolean isVisible { get; set; }
 
+        public int Stock { get; set; }
+
     }
 }
