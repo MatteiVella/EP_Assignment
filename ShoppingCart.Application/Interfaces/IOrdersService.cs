@@ -8,6 +8,7 @@ namespace ShoppingCart.Application.Interfaces
     public interface IOrdersService
     {
         public void AddOrder(Guid userId);
+        public void AddGuestOrder(Guid guestOrderId);
         public void CloseOrder(Guid orderId);
     }
 }

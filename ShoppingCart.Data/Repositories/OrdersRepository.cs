@@ -15,6 +15,21 @@ namespace ShoppingCart.Data.Repositories
         {
             _context = context;
         }
+
+        public void AddGuestOrder(Guid guestOrderId)
+        {
+            Order o = new Order();
+            o.Id = guestOrderId;
+            o.DatePlaced = DateTime.MinValue;
+            o.Email = null;
+            o.OrderTotalPrice = 0;
+            o.UserId = Guid.Empty;
+            o.OrderStatusId = _context.OrderStatus.SingleOrDefault(x => x.Status == "Not_Checked_Out").Id;
+
+            _context.Add(o);
+            _context.SaveChanges();
+        }
+
         public void AddOrder(Guid userId)
         {
             Order o = new Order();

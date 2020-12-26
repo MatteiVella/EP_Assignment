@@ -22,30 +22,19 @@ namespace ShoppingCart.Application.Services
         }
         public void AddToCart(Guid productId, Guid userId)
         {
-            orderId = GetOrderId(userId);
-            _orderDetailsRepo.AddToCart(productId,orderId);
-
+            _orderDetailsRepo.AddToCart(productId, userId);
         }
-
-        public void Dispose()
+        public void AddToGuestCart(Guid productId, Guid orderId)
         {
-            throw new NotImplementedException();
+            _orderDetailsRepo.AddToGuestCart(productId,orderId);
         }
 
         public Guid GetOrderId(Guid UserId)
         {
 
             Guid OrderId = _orderDetailsRepo.GetOrderId(UserId);
-            /*if(OrderId == Guid.Empty)
-            {
-                Guid TempGuestGuid = Guid.NewGuid();
-                _ordersRepo.AddOrder(new Order { Id = TempGuestGuid, OrderStatusId = GetStatusId("Not_Checked_Out")});
-                return TempGuestGuid;
-            }
-            else
-            {*/
-                return OrderId;
-            //}
+
+            return OrderId;
         }
 
         public Guid GetStatusId(string StatusName)

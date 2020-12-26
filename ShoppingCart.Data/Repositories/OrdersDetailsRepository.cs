@@ -20,8 +20,9 @@ namespace ShoppingCart.Data.Repositories
             _context = context;
         }
 
-        public void AddToCart(Guid productId, Guid orderId)
+        public void AddToCart(Guid productId, Guid userId)
         {
+            var orderId = GetOrderId(userId);
             var orderItem = _context.OrderDetails.SingleOrDefault(
                 x => x.OrderId == orderId && x.ProductId == productId);
             var product = _context.Products.SingleOrDefault(
@@ -35,24 +36,33 @@ namespace ShoppingCart.Data.Repositories
             {
                 orderItem.Quantity++;
             }
+            product.Stock--;
+            _context.Update(product);
             _context.SaveChanges();
         }
-
-        public void Dispose()
+        
+        public void AddToGuestCart(Guid productId, Guid orderId)
         {
-            if (_context != null)
+            var orderItem = _context.OrderDetails.SingleOrDefault(
+                x => x.OrderId == orderId && x.ProductId == productId);
+            var product = _context.Products.SingleOrDefault(
+                x => x.Id == productId);
+
+            if (orderItem == null)
             {
-                _context.Dispose();
-                _context = null;
+                _context.OrderDetails.Add(new OrderDetails() { OrderId = orderId, ProductId = productId, Quantity = 1, SoldPrice = product.Price });
             }
+            else
+            {
+                orderItem.Quantity++;
+            }
+            product.Stock--;
+            _context.Update(product);
+            _context.SaveChanges();
         }
 
         public Guid GetOrderId(Guid userId)
         {
-            if(userId == Guid.Empty)
-            {
-                return Guid.Empty;
-            }
             var Order = _context.Order
                 .Where(x => x.OrderStatus.Status == "Not_Checked_Out")
                 .SingleOrDefault(x => x.UserId == userId);
@@ -105,8 +115,15 @@ namespace ShoppingCart.Data.Repositories
         public void DeleteFromOrderDetails(Guid productId, Guid orderId)
         {
             var orderDetail = GetOneOrderDetail(orderId, productId);
+            int quantity = orderDetail.Quantity;
             _context.OrderDetails.Remove(orderDetail);
+
+            var product = _context.Products.FirstOrDefault(x => x.Id == productId);
+            product.Stock = product.Stock + quantity;
+            _context.Update(product);
+
             _context.SaveChanges();
         }
+
     }
 }

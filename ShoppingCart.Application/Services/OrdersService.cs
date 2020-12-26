@@ -15,6 +15,12 @@ namespace ShoppingCart.Application.Services
         {
             _ordersRep = ordersRep;
         }
+
+        public void AddGuestOrder(Guid guestOrderId)
+        {
+            _ordersRep.AddGuestOrder(guestOrderId);
+        }
+
         public void AddOrder(Guid userId)
         {
             _ordersRep.AddOrder(userId);

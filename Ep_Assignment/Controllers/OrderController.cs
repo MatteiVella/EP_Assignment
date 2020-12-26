@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Ep_Assignment.Controllers
 {
@@ -25,18 +26,32 @@ namespace Ep_Assignment.Controllers
         [HttpGet]
         public IActionResult Checkout()
         {
-            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            Guid GuidUserId = Guid.Empty;
-            Guid.TryParse(currentUserId, out GuidUserId);
-            Guid orderId = _ordersDetailsService.GetOrderId(GuidUserId);
+                Guid GuidUserId = Guid.Empty;
+                Guid.TryParse(currentUserId, out GuidUserId);
+                Guid orderId = _ordersDetailsService.GetOrderId(GuidUserId);
 
-            var listOfOrderItems = _ordersDetailsService.GetOrderItems(orderId);
-            var totalPrice = _ordersDetailsService.GetTotal(orderId);
-            _ordersDetailsService.SetTotal(orderId);
-            ViewBag.OrderTotalPrice = totalPrice;
-            ViewBag.OrderId = orderId;
-            return View(listOfOrderItems);
+                var listOfOrderItems = _ordersDetailsService.GetOrderItems(orderId);
+                var totalPrice = _ordersDetailsService.GetTotal(orderId);
+                _ordersDetailsService.SetTotal(orderId);
+                ViewBag.OrderTotalPrice = totalPrice;
+                ViewBag.OrderId = orderId;
+                return View(listOfOrderItems);
+            }
+            else
+            {
+                var orderId = HttpContext.Request.Cookies["tempOrder_id"];
+                Guid GuidOrderId = Guid.Empty;
+                Guid.TryParse(orderId, out GuidOrderId);
+                var listOfOrderItems = _ordersDetailsService.GetOrderItems(GuidOrderId);
+                var totalPrice = _ordersDetailsService.GetTotal(GuidOrderId);
+                ViewBag.OrderTotalPrice = totalPrice;
+                ViewBag.OrderId = GuidOrderId;
+                return View(listOfOrderItems);
+            }
 
         }
 
@@ -63,9 +78,24 @@ namespace Ep_Assignment.Controllers
             Guid GuidUserId = Guid.Empty;
             Guid.TryParse(userId, out GuidUserId);
 
-            _ordersDetailsService.AddToCart(productId,GuidUserId);
-            var orderId = _ordersDetailsService.GetOrderId(GuidUserId);
-            _ordersDetailsService.SetTotal(orderId);
+            if (userId == null)
+            {
+                var orderId = HttpContext.Request.Cookies["tempOrder_id"];
+                Guid GuidOrderId = Guid.Empty;
+                Guid.TryParse(orderId, out GuidOrderId);
+                _ordersService.AddGuestOrder(GuidOrderId);
+                _ordersDetailsService.AddToGuestCart(productId, GuidOrderId);
+                _ordersDetailsService.SetTotal(GuidOrderId);
+
+            }
+            else
+            {
+                _ordersDetailsService.AddToCart(productId, GuidUserId);
+                var orderId = _ordersDetailsService.GetOrderId(GuidUserId);
+                _ordersDetailsService.SetTotal(orderId);
+            }
+
+
             TempData["success"] = "Product Was Added to the Cart Succesfully";
             return RedirectToAction("Details","Products", new { id = productId });
 

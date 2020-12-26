@@ -9,7 +9,7 @@ namespace ShoppingCart.Application.Interfaces
     public interface IOrdersDetailsService
     {
         public void AddToCart(Guid productId, Guid userId);
-        public void Dispose();
+        public void AddToGuestCart(Guid productId, Guid orderId);
         public Guid GetOrderId(Guid userId);
         public IQueryable<OrderDetailsViewModel> GetOrderItems(Guid orderId);
         public OrderDetailsViewModel GetOneOrderDetail(Guid orderId, Guid productId);
