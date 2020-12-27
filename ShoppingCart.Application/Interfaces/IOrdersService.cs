@@ -9,6 +9,6 @@ namespace ShoppingCart.Application.Interfaces
     {
         public void AddOrder(Guid userId);
         public void AddGuestOrder(Guid guestOrderId);
-        public void CloseOrder(Guid orderId);
+        public void CloseOrder(Guid orderId, Guid userId);
     }
 }

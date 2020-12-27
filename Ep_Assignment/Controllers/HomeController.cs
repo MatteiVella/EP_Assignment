@@ -8,15 +8,18 @@ using Microsoft.Extensions.Logging;
 using Ep_Assignment.Models;
 using ShoppingCart.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Ep_Assignment.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger)
+        private IOrdersService _ordersService;
+        public HomeController(ILogger<HomeController> logger, IOrdersService ordersService)
         {
             _logger = logger;
+            _ordersService = ordersService;
         }
 
         public IActionResult Index()
@@ -35,6 +38,13 @@ namespace Ep_Assignment.Controllers
                 {
                     return View();
                 }
+            }
+            else
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Guid GuidUserId = Guid.Empty;
+                Guid.TryParse(userId, out GuidUserId);
+                _ordersService.AddOrder(GuidUserId);
             }
 
 

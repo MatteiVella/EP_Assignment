@@ -26,9 +26,9 @@ namespace ShoppingCart.Application.Services
             _ordersRep.AddOrder(userId);
         }
 
-        public void CloseOrder(Guid orderId)
+        public void CloseOrder(Guid orderId,Guid userId)
         {
-            _ordersRep.CloseOrder(orderId);
+            _ordersRep.CloseOrder(orderId,userId);
         }
 
     }

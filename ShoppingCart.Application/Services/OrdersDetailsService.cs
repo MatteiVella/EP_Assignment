@@ -14,11 +14,9 @@ namespace ShoppingCart.Application.Services
     {
         public Guid orderId { get; set; }
         private IOrdersDetailsRepository _orderDetailsRepo;
-        private IOrdersRepository _ordersRepo;
-        public OrdersDetailsService(IOrdersDetailsRepository orderDetailsRepo, IOrdersRepository ordersRepo)
+        public OrdersDetailsService(IOrdersDetailsRepository orderDetailsRepo)
         {
             _orderDetailsRepo = orderDetailsRepo;
-            _ordersRepo = ordersRepo;
         }
         public void AddToCart(Guid productId, Guid userId)
         {

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ep_Assignment.Controllers
 {
@@ -83,6 +84,7 @@ namespace Ep_Assignment.Controllers
                 var orderId = HttpContext.Request.Cookies["tempOrder_id"];
                 Guid GuidOrderId = Guid.Empty;
                 Guid.TryParse(orderId, out GuidOrderId);
+
                 _ordersService.AddGuestOrder(GuidOrderId);
                 _ordersDetailsService.AddToGuestCart(productId, GuidOrderId);
                 _ordersDetailsService.SetTotal(GuidOrderId);
@@ -108,23 +110,38 @@ namespace Ep_Assignment.Controllers
             return RedirectToAction("Checkout");
         }
 
+        [Authorize]
         public IActionResult PurchaseOrder(Guid orderId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid GuidUserId = Guid.Empty;
             Guid.TryParse(userId, out GuidUserId);
 
+            var cookieOrderId = HttpContext.Request.Cookies["tempOrder_id"];
+            Guid GuidCookieOrderId = Guid.Empty;
+            Guid.TryParse(cookieOrderId, out GuidCookieOrderId);
+
+
             try
             {
-                _ordersService.CloseOrder(orderId);
+                _ordersService.CloseOrder(orderId,GuidUserId);
                 _ordersService.AddOrder(GuidUserId);
+
+                if (orderId == GuidCookieOrderId)
+                {
+                    Response.Cookies.Delete("tempOrder_id");
+                }
+
                 TempData["Success"] = "Your Order Has been Successfully Checked Out.";
-            }catch(Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 TempData["Warning"] = ex.Message;
             }
 
             return RedirectToAction("Index", "Home");
+           
         }
     }
 }

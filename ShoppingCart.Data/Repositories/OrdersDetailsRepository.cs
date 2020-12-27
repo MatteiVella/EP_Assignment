@@ -66,7 +66,8 @@ namespace ShoppingCart.Data.Repositories
             var Order = _context.Order
                 .Where(x => x.OrderStatus.Status == "Not_Checked_Out")
                 .SingleOrDefault(x => x.UserId == userId);
-            return Order.Id;
+            Guid orderId = Order.Id;
+            return orderId;
         }
 
         public Guid GetStatusId(string StatusName)

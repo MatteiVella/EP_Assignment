@@ -18,36 +18,54 @@ namespace ShoppingCart.Data.Repositories
 
         public void AddGuestOrder(Guid guestOrderId)
         {
-            Order o = new Order();
-            o.Id = guestOrderId;
-            o.DatePlaced = DateTime.MinValue;
-            o.Email = null;
-            o.OrderTotalPrice = 0;
-            o.UserId = Guid.Empty;
-            o.OrderStatusId = _context.OrderStatus.SingleOrDefault(x => x.Status == "Not_Checked_Out").Id;
+            var CheckIfGuestOrderExists = _context.Order.SingleOrDefault(x => x.Id == guestOrderId);
+            if (CheckIfGuestOrderExists == null)
+            {
 
-            _context.Add(o);
-            _context.SaveChanges();
+                Order o = new Order();
+                o.Id = guestOrderId;
+                o.DatePlaced = DateTime.MinValue;
+                o.Email = null;
+                o.OrderTotalPrice = 0;
+                o.UserId = Guid.Empty;
+                o.OrderStatusId = _context.OrderStatus.SingleOrDefault(x => x.Status == "Not_Checked_Out").Id;
+
+
+                _context.Add(o);
+                _context.SaveChanges();
+            }
         }
 
         public void AddOrder(Guid userId)
         {
-            Order o = new Order();
-            o.DatePlaced = DateTime.MinValue;
-            o.Email = _context.Members.SingleOrDefault(x => x.UserId == userId).Email;
-            o.OrderTotalPrice = 0;
-            o.UserId = userId;
-            o.OrderStatusId = _context.OrderStatus.SingleOrDefault(x => x.Status == "Not_Checked_Out").Id;
+            Guid openOrderStatusId = _context.OrderStatus.SingleOrDefault(x => x.Status == "Not_Checked_Out").Id;
+            var listOfOrdersForUserId = _context.Order.SingleOrDefault(x => x.UserId == userId && x.OrderStatusId == openOrderStatusId);
 
-            _context.Add(o);
+            if (listOfOrdersForUserId == null)
+            {
+                Order o = new Order();
+                o.DatePlaced = DateTime.MinValue;
+                o.Email = _context.Members.SingleOrDefault(x => x.UserId == userId).Email;
+                o.OrderTotalPrice = 0;
+                o.UserId = userId;
+                o.OrderStatusId = _context.OrderStatus.SingleOrDefault(x => x.Status == "Not_Checked_Out").Id;
+
+                _context.Add(o);
+            }
+
+
             _context.SaveChanges();
         }
 
-        public void CloseOrder(Guid orderId)
+        public void CloseOrder(Guid orderId,Guid userId)
         {
             var myOrder = _context.Order.SingleOrDefault(x => x.Id == orderId);
+            var email = _context.Members.SingleOrDefault(x => x.UserId == userId).Email;
+
             myOrder.OrderStatusId = _context.OrderStatus.SingleOrDefault(x => x.Status == "Checked_Out").Id;
             myOrder.DatePlaced = DateTime.Now;
+            myOrder.UserId = userId;
+            myOrder.Email = email;
 
             _context.Update(myOrder);
             _context.SaveChanges();
