@@ -1,0 +1,32 @@
+﻿@model ShoppingCart.Application.ViewModels.ProductViewModel
+<div class="container-fluid" style="text-align:center">
+    <hr />
+    <dl class="row" style="text-align:center">
+        <dd class="col-sm-12" style="font-family:fantasy;font-size:40px;text-decoration:wavy;font:bold">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dd class="col-sm-12">
+            <img src="@Model.ImageUrl" alt="@Model.Name" style="height:350px;border-radius:20px;width:350px" />
+        </dd>
+        <dd class="col-sm-12" style="font:bold;font-size:28px;font-family:fantasy">
+            £@Html.DisplayFor(model => model.Price)
+            <br />
+        </dd>
+        <dd class="col-sm-12">
+            <a href="/Order/AddToCart?productId=@Model.Id" class="btn btn-outline-dark">Add To Cart</a>
+            <br />
+        </dd>
+        <dd class="col-sm-12">
+            @Html.DisplayFor(model => model.Category.Name)
+            <br />
+            <hr />
+        </dd>
+        <dt class="col-sm-12">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-12">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+

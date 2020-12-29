@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ShoppingCart.Application.ViewModels.OrderDetailsViewModel>
 @{
-    ViewData["Title"] = "Checkout";
+    TempData["Title"] = "Checkout";
 }
 
 <header>
@@ -27,41 +27,36 @@
             </tr>
         </thead>
         <tbody>
-                @{ double totalPerProduct = 0;}
-                @foreach (var m in Model)
-                {
-                    totalPerProduct = m.Quantity * m.Product.Price;
-                <tr>
-                    <td class="image">
-                        <img src="@m.Product.ImageUrl" class="img-fluid" style="max-height:70px;border-radius:20px" />
-                    </td>
-                    <td class="productName">@m.Product.Name</td>
-                    <td class="amount">
-                        <input class="form-control" type="number" name="quantity" value=@m.Quantity style="width:60px">
-                    </td>
-                    <td class="price">£@totalPerProduct</td>
-                    <td>
-                        <a href="/Order/DeleteFromOrderDetails?productId=@m.Product.Id&orderId=@m.Order.Id" class="btn btn-outline-dark">Remove From Cart</a>
-                    </td>
-                </tr>
-                }
+           <partial name="_CheckoutPartial" />
         </tbody>
         <thead>
-            <tr>
-                <th colspan="2"></th>
-                <th colspan="1"></th>
-                <th colspan="1">Total</th>
-            </tr>
+            @if (Convert.ToInt32(this.ViewContext.HttpContext.Items["count"]) > 0)
+            {
+                <tr>
+                    <th colspan="2"></th>
+                    <th colspan="1"></th>
+                    <th colspan="1">Total</th>
+                </tr>
+            }
         </thead>
         <tbody>
+            @if (Convert.ToInt32(this.ViewContext.HttpContext.Items["count"]) > 0)
+            {
             <tr>
                 <td colspan="3">
                 </td>
                 <td style="font-size:32px;text-decoration:underline">£@ViewBag.OrderTotalPrice</td>
                 <td>
-e                    <a href="/Order/PurchaseOrder?orderId=@ViewBag.OrderId" class="btn btn-outline-dark">Checkout</a>
+                    <a href="/Order/PurchaseOrder?orderId=@ViewBag.OrderId" class="btn btn-outline-dark">Checkout</a>
                 </td>
             </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" style="font-size:26px;text-decoration:underline;font-family:fantasy;text-align:center;column-span:all" >PLEASE ADD ITEMS TO YOUR CART IN ORDER TO CHECKOUT</td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

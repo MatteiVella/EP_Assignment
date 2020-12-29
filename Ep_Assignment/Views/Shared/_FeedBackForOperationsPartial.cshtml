@@ -1,0 +1,10 @@
+﻿@{
+    if (TempData["Warning"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Warning"]</div>
+    }
+    if (TempData["Success"] != null)
+    {
+        <div class="alert alert-warning">@TempData["Success"]</div>
+    }
+}

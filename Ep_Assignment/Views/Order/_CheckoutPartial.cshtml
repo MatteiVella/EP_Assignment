@@ -1,0 +1,22 @@
+﻿@{ double totalPerProduct = 0; int count = 0;}
+@foreach (var m in Model)
+{
+    count = count + 1;
+    this.ViewContext.HttpContext.Items["count"] = count;
+    totalPerProduct = m.Quantity * m.Product.Price;
+    <tr>
+        <td class="image">
+            <a href="/Products/Details?id=@m.Product.Id">
+                <img src="@m.Product.ImageUrl" class="img-fluid" style="max-height:70px;border-radius:20px" />
+            </a>
+        </td>
+        <td class="productName">@m.Product.Name</td>
+        <td class="amount">
+            <input class="form-control" type="number" name="quantity" value=@m.Quantity style="width:60px" disabled>
+        </td>
+        <td class="price">£@totalPerProduct</td>
+        <td>
+            <a href="/Order/DeleteFromOrderDetails?productId=@m.Product.Id&orderId=@m.Order.Id" class="btn btn-outline-dark">Remove From Cart</a>
+        </td>
+    </tr>
+}

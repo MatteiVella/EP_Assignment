@@ -1,17 +1,10 @@
 ﻿@model ShoppingCart.Application.ViewModels.ProductViewModel
 
 @{
-    ViewData["Title"] = "Details";
-    //Layout = "~/Areas/Identity/Pages/_ViewStart.cshtml";
-    if (TempData["warning"] != null)
-    {
-        <div class="alert alert-danger">@TempData["Warning"]</div>
-    }
-    if (TempData["success"] != null)
-    {
-        <div class="alert alert-warning">@TempData["Success"]</div>
-    }
+    TempData["Title"] = "Details";
 }
+<partial name="_FeedBackForOperationsPartial" />
+
 <header>
     <div>
         <h1 style="
@@ -25,37 +18,8 @@
     </div>
 </header>
 
+<partial name="_DetailsPartial" />
 
-<div class="container-fluid" style="text-align:center">
-    <hr />
-    <dl class="row" style="text-align:center">
-        <dd class="col-sm-12" style="font-family:fantasy;font-size:40px;text-decoration:wavy;font:bold">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dd class="col-sm-12">
-            <img src="@Model.ImageUrl" alt="@Model.Name" style="height:350px;border-radius:20px;width:350px" />
-        </dd>
-        <dd class="col-sm-12" style="font:bold;font-size:28px;font-family:fantasy">
-            £@Html.DisplayFor(model => model.Price)
-            <br />
-        </dd>
-        <dd class="col-sm-12">
-            <a href="/Order/AddToCart?productId=@Model.Id" class="btn btn-outline-dark">Add To Cart</a>
-            <br />
-        </dd>
-        <dd class="col-sm-12">
-            @Html.DisplayFor(model => model.Category.Name)
-            <br />
-            <hr />
-        </dd>
-        <dt class="col-sm-12">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-12">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-</div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>

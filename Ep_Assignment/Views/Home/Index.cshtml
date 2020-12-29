@@ -1,14 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
-    if (TempData["Warning"] != null)
-    {
-        <div class="alert alert-danger">@TempData["Warning"]</div>
-    }
-    if (TempData["Success"] != null)
-    {
-        <div class="alert alert-warning">@TempData["Success"]</div>
-    }
+    TempData["Title"] = "Home Page";
 }
+<partial name="_FeedBackForOperationsPartial" />
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>

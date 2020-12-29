@@ -40,6 +40,7 @@ namespace Ep_Assignment.Controllers
                 _ordersDetailsService.SetTotal(orderId);
                 ViewBag.OrderTotalPrice = totalPrice;
                 ViewBag.OrderId = orderId;
+                ViewBag.Count = 0;
                 return View(listOfOrderItems);
             }
             else
@@ -70,7 +71,7 @@ namespace Ep_Assignment.Controllers
 
             if(stockForProductId == 0)
             {
-                TempData["warning"] = "Unfortunatley, The Chosen Product is Out Of Stock.";
+                TempData["Warning"] = "Unfortunatley, The Chosen Product is Out Of Stock.";
                 return RedirectToAction("Details", "Products", new { id = productId });
             }
 
@@ -98,7 +99,7 @@ namespace Ep_Assignment.Controllers
             }
 
 
-            TempData["success"] = "Product Was Added to the Cart Succesfully";
+            TempData["Success"] = "Product Was Added to the Cart Succesfully";
             return RedirectToAction("Details","Products", new { id = productId });
 
         }

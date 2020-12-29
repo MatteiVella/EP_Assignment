@@ -9,6 +9,7 @@ using Ep_Assignment.Models;
 using ShoppingCart.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace Ep_Assignment.Controllers
 {
@@ -59,9 +60,9 @@ namespace Ep_Assignment.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string code)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, code = code});
         }
     }
 }

@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShoppingCart.Data.Context;
 using ShoppingCart.IOC;
+using Microsoft.AspNetCore.Http;
 
 namespace Ep_Assignment
 {
@@ -71,9 +72,12 @@ namespace Ep_Assignment
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseStatusCodePagesWithRedirects("/Home/Error?code={0}");
+
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/Home/Error");
+                //app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
             else
