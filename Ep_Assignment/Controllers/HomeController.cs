@@ -24,6 +24,8 @@ namespace Ep_Assignment.Controllers
 
         public IActionResult Index()
         {
+            //Checking if the user is a guest or not. If hes not a guest, he will create a temp OrderId and store it in the cookies
+            //If the user is authenticated, an OrderId will be created, only if the user doesnt have an order which is currently open
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
                 if (HttpContext.Request.Cookies["tempOrder_id"] == null)

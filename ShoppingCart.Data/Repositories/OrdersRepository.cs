@@ -41,6 +41,8 @@ namespace ShoppingCart.Data.Repositories
             Guid openOrderStatusId = _context.OrderStatus.SingleOrDefault(x => x.Status == "Not_Checked_Out").Id;
             var listOfOrdersForUserId = _context.Order.SingleOrDefault(x => x.UserId == userId && x.OrderStatusId == openOrderStatusId);
 
+            //Checking if the user using the website has an order assosciated to their account, if not, an order will be created. If the user has an account
+            // Nothing will be done.
             if (listOfOrdersForUserId == null)
             {
                 Order o = new Order();

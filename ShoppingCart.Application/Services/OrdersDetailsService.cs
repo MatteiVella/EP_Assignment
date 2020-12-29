@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace ShoppingCart.Application.Services
 {
@@ -14,9 +16,11 @@ namespace ShoppingCart.Application.Services
     {
         public Guid orderId { get; set; }
         private IOrdersDetailsRepository _orderDetailsRepo;
-        public OrdersDetailsService(IOrdersDetailsRepository orderDetailsRepo)
+        private IMapper _mapper;
+        public OrdersDetailsService(IOrdersDetailsRepository orderDetailsRepo, IMapper mapper)
         {
             _orderDetailsRepo = orderDetailsRepo;
+            _mapper = mapper;
         }
         public void AddToCart(Guid productId, Guid userId)
         {
@@ -29,10 +33,7 @@ namespace ShoppingCart.Application.Services
 
         public Guid GetOrderId(Guid UserId)
         {
-
-            Guid OrderId = _orderDetailsRepo.GetOrderId(UserId);
-
-            return OrderId;
+            return _orderDetailsRepo.GetOrderId(UserId);
         }
 
         public Guid GetStatusId(string StatusName)
@@ -43,18 +44,7 @@ namespace ShoppingCart.Application.Services
 
         public IQueryable<OrderDetailsViewModel> GetOrderItems(Guid orderId)
         {
-
-            var list = from p in _orderDetailsRepo.GetOrderItems(orderId)
-                       select new OrderDetailsViewModel()
-                       {
-                           Id = p.Id,
-                           Product = new ProductViewModel() { Id = p.Product.Id, ImageUrl= p.Product.ImageUrl,  Name = p.Product.Name, Price = p.Product.Price},
-                           Order = new OrderViewModel() { Id = p.Order.Id, Email = p.Order.Email, OrderStatus = p.Order.OrderStatus, OrderTotalPrice = p.Order.OrderTotalPrice},
-                           Quantity = p.Quantity,
-                           SoldPrice = p.SoldPrice,
-                       };
-            
-            return list;
+            return _orderDetailsRepo.GetOrderItems(orderId).ProjectTo<OrderDetailsViewModel>(_mapper.ConfigurationProvider);
         }
 
         public double GetTotal(Guid orderId)
@@ -74,20 +64,7 @@ namespace ShoppingCart.Application.Services
 
         public OrderDetailsViewModel GetOneOrderDetail(Guid orderId, Guid productId)
         {
-            OrderDetailsViewModel model = new OrderDetailsViewModel();
-            var orderDetailFromDb = _orderDetailsRepo.GetOneOrderDetail(orderId, productId);
-
-            model.Id = orderDetailFromDb.Id;
-            model.Order = new OrderViewModel();
-            model.Order.Id = orderDetailFromDb.Order.Id;
-            model.Order.OrderStatus = orderDetailFromDb.Order.OrderStatus;
-            model.Order.OrderTotalPrice = orderDetailFromDb.Order.OrderTotalPrice;
-            model.Order.User.UserId = orderDetailFromDb.Order.UserId;
-            model.Product.Id = orderDetailFromDb.Product.Id;
-            model.Product.ImageUrl = orderDetailFromDb.Product.ImageUrl;
-
-            return model;
-            
+            return _mapper.Map<OrderDetailsViewModel>(_orderDetailsRepo.GetOneOrderDetail(orderId, productId));          
         }
     }
 }
